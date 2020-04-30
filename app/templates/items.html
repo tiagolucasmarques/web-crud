@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   <title>Django</title>
+</head>
+
+<body>
+   <nav class="navbar navbar-light bg-light">
+      <a href="/">Home</a>
+   </nav>
+   {% for item in error %}
+   <p>{{ item }}</p>
+   {% endfor %}
+   <table>
+      <center><h1>Cadastro</h1></center>
+         
+         {% if items %}
+         {% for i in items %}
+         <div class="container">
+         <form action="/new_items/" method="post">
+            <input class="form-control" type="number" name="id" value="{{ i.id }}" hidden>
+            <input class="form-control" type="text" name="name" value="{{ i.name }}" required>
+            <input class="form-control" type="text" name="quantidade" value="{{ i.quantidade }}">
+            <input class="form-control" type="text" name="valor" value="{{ i.valor }}">
+            <button type="submit" name="enviar" value="Salvar" class="btn btn-success form-control">Cadastrar</button>
+         </form>
+         </div>
+         {% endfor %}
+         {% else %}
+         <div class="container">
+         <form action="/new_items/" method="post">
+            <input class="form-control" type="number" name="id" value="-1" hidden>
+            <input class="form-control"  type="text" name="name" placeholder="Nome" required>
+            <input class="form-control" type="text" name="quantidade" placeholder="quantidade">
+            <input class="form-control" type="text" name="valor" placeholder="valor">
+            <button type="submit" name="enviar" value="Salvar" class="btn btn-success form-control">Cadastrar</button>
+         </form>
+         </div>
+         {% endif %}
+   </table>
+   <ul>
+      <table border="1">
+         <p>Produtos</p>
+         {% for i in list %}
+         <tr>
+            <td><b>Nome:</b> {{ i.name }}</td>
+            <td><b>quantidade:</b> {{ i.quantidade }}</td>
+            <td><b>Valor:</b> {{ i.valor }}</td>
+            <td><a href="/update_items/?id={{ i.id }}"><button type="button" class="btn btn-outline-success">Alterar</button></td></a>
+            <td><a href="/delete_items/?id={{ i.id }}"><button type="button" class="btn btn-outline-danger">Deletar</button></td></a>
+         </tr>
+         {% endfor %}
+
+      </table>
+   </ul>
+</body>
+
+</html>

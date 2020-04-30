@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+   <title>Django</title>
+</head>
+
+<body>
+   <a href="/">Home</a>
+   <br><br>
+   <hr />
+   {% for item in error %}
+   <p>{{ item }}</p>
+   {% endfor %}
+   <table>
+      <center>
+         <h1>Cadastro</h1>
+         {% if items %}
+         {% for item in items %}
+         <form action="/new_item/" method="post">
+            <input type="number" name="id" value="{{ item.id }}" hidden>
+            <input type="text" name="name" value="{{ item.name }}" required>
+            <input type="text" name="quantidade" value="{{ item.quantidade }}">
+            <input type="text" name="valor" value="{{ item.valor }}">
+            <input type="submit" name="enviar" value="Salvar">
+         </form>
+         {% endfor %}
+         {% else %}
+         <form action="/new_item/" method="post">
+            <input type="number" name="id" value="-1" hidden>
+            <input type="text" name="name" placeholder="Nome" required>
+            <input type="text" name="quantidade" placeholder="quantidade">
+            <input type="text" name="valor" placeholder="valor">
+            <input type="submit" name="enviar" value="Salvar">
+         </form>
+         {% endif %}
+
+
+      </center>
+   </table>
+
+   <br>
+   <hr /><br><br>
+   <ul>
+      <table border="1">
+         <p>Produtos</p>
+         {% for item in list %}
+         <tr>
+            <td><b>Nome:</b> {{ item.name }}</td>
+            <td><b>quantidade:</b> {{ item.quantidade }}</td>
+            <td><b>Valor:</b> {{ item.valor }}</td>
+            <td><a href="/delete_item/?id={{ item.id }}">Deletar</a></td>
+            <td><a href="/update_item/?id={{ item.id }}">Alterar</a></td>
+         </tr>
+         {% endfor %}
+
+      </table>
+   </ul>
+</body>
+
+</html>
